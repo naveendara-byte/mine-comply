@@ -1,0 +1,97 @@
+// Version: 1.0.0
+type AirParameter__361277455 =
+  {#CO; #NOx; #Other : Text; #PM10; #PM2_5; #SO2};
+type AirQualityReading__47834896 =
+  {
+    createdAt : Timestamp__301639476;
+    date : Timestamp__301639476;
+    id : AirReadingId__525360819;
+    location : Text;
+    measuredBy : Text;
+    notes : Text;
+    parameter : AirParameter__361277455;
+    unit : Text;
+    value : Float
+  };
+type AirReadingId__525360819 = Nat;
+type ComplianceTask__98294003 =
+  {
+    conditionText : Text;
+    createdAt : Timestamp__301639476;
+    dueDate : Timestamp__301639476;
+    id : TaskId__207642484;
+    notes : Text;
+    responsibleOfficer : Text;
+    status : TaskStatus__250525942;
+    taskType : TaskType__765554955;
+    title : Text;
+    updatedAt : Timestamp__301639476
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type PiezoReadingId__611324344 = Nat;
+type PiezometerReading__73333186 =
+  {
+    conductivity : Float;
+    createdAt : Timestamp__301639476;
+    date : Timestamp__301639476;
+    depthToWater : Float;
+    id : PiezoReadingId__611324344;
+    location : Text;
+    measuredBy : Text;
+    notes : Text;
+    pH : Float;
+    turbidity : Float;
+    wellId : Text
+  };
+type TaskId__207642484 = Nat;
+type TaskStatus__250525942 = {#Completed; #InProgress; #Overdue; #Pending};
+type TaskType__765554955 = {#CTE; #CTO; #EC};
+type Timestamp__301639476 = Int;
+type TreeRecordId__800376317 = Nat;
+type TreeRecord__941944193 =
+  {
+    count : Nat;
+    createdAt : Timestamp__301639476;
+    id : TreeRecordId__800376317;
+    location : Text;
+    notes : Text;
+    plantedBy : Text;
+    plantingDate : Timestamp__301639476;
+    species : Text
+  };
+actor {
+  stable var _nextAirReadingId : Nat;
+  stable var _nextPiezoReadingId : Nat;
+  stable var _nextTaskId : Nat;
+  stable var _nextTreeRecordId : Nat;
+  stable airReadings :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?AirQualityReading__47834896]];
+      var elementIndex : Nat__490723111
+    };
+  stable var nextAirReadingId : Nat;
+  stable var nextPiezoReadingId : Nat;
+  stable var nextTaskId : Nat;
+  stable var nextTreeRecordId : Nat;
+  stable piezoReadings :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?PiezometerReading__73333186]];
+      var elementIndex : Nat__490723111
+    };
+  stable var seeded : Bool;
+  stable tasks :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ComplianceTask__98294003]];
+      var elementIndex : Nat__490723111
+    };
+  stable treeRecords :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?TreeRecord__941944193]];
+      var elementIndex : Nat__490723111
+    }
+};

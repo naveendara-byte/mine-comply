@@ -1,0 +1,165 @@
+type UpdateTaskRequest = 
+ record {
+   notes: text;
+   status: TaskStatus;
+ };
+type TreeRecordId = nat;
+type TreeRecord = 
+ record {
+   count: nat;
+   createdAt: Timestamp;
+   id: TreeRecordId;
+   location: text;
+   notes: text;
+   plantedBy: text;
+   plantingDate: Timestamp;
+   species: text;
+ };
+type Timestamp = int;
+type TaskType = 
+ variant {
+   CTE;
+   CTO;
+   EC;
+ };
+type TaskStatusCounts = 
+ record {
+   completed: nat;
+   inProgress: nat;
+   overdue: nat;
+   pending: nat;
+ };
+type TaskStatus = 
+ variant {
+   Completed;
+   InProgress;
+   Overdue;
+   Pending;
+ };
+type TaskId = nat;
+type SpeciesSummary = 
+ record {
+   species: text;
+   totalCount: nat;
+ };
+type PiezometerReading = 
+ record {
+   conductivity: float64;
+   createdAt: Timestamp;
+   date: Timestamp;
+   depthToWater: float64;
+   id: PiezoReadingId;
+   location: text;
+   measuredBy: text;
+   notes: text;
+   pH: float64;
+   turbidity: float64;
+   wellId: text;
+ };
+type PiezoReadingId = nat;
+type DashboardStats = 
+ record {
+   recentAirReadingsCount: nat;
+   recentPiezoReadingsCount: nat;
+   taskCounts: TaskStatusCounts;
+   totalTreesPlanted: nat;
+ };
+type CreateTreeRecordRequest = 
+ record {
+   count: nat;
+   location: text;
+   notes: text;
+   plantedBy: text;
+   plantingDate: Timestamp;
+   species: text;
+ };
+type CreateTaskRequest = 
+ record {
+   conditionText: text;
+   dueDate: Timestamp;
+   notes: text;
+   responsibleOfficer: text;
+   taskType: TaskType;
+   title: text;
+ };
+type CreatePiezoReadingRequest = 
+ record {
+   conductivity: float64;
+   date: Timestamp;
+   depthToWater: float64;
+   location: text;
+   measuredBy: text;
+   notes: text;
+   pH: float64;
+   turbidity: float64;
+   wellId: text;
+ };
+type CreateAirReadingRequest = 
+ record {
+   date: Timestamp;
+   location: text;
+   measuredBy: text;
+   notes: text;
+   parameter: AirParameter;
+   unit: text;
+   value: float64;
+ };
+type ComplianceTask = 
+ record {
+   conditionText: text;
+   createdAt: Timestamp;
+   dueDate: Timestamp;
+   id: TaskId;
+   notes: text;
+   responsibleOfficer: text;
+   status: TaskStatus;
+   taskType: TaskType;
+   title: text;
+   updatedAt: Timestamp;
+ };
+type AirReadingId = nat;
+type AirQualityReading = 
+ record {
+   createdAt: Timestamp;
+   date: Timestamp;
+   id: AirReadingId;
+   location: text;
+   measuredBy: text;
+   notes: text;
+   parameter: AirParameter;
+   unit: text;
+   value: float64;
+ };
+type AirParameter = 
+ variant {
+   CO;
+   NOx;
+   Other: text;
+   PM10;
+   PM2_5;
+   SO2;
+ };
+service : {
+  addAirQualityReading: (req: CreateAirReadingRequest) -> (AirQualityReading);
+  addPiezometerReading: (req: CreatePiezoReadingRequest) ->
+   (PiezometerReading);
+  addTreeRecord: (req: CreateTreeRecordRequest) -> (TreeRecord);
+  createComplianceTask: (req: CreateTaskRequest) -> (ComplianceTask);
+  deleteAirQualityReading: (id: AirReadingId) -> (bool);
+  deleteComplianceTask: (id: TaskId) -> (bool);
+  deletePiezometerReading: (id: PiezoReadingId) -> (bool);
+  deleteTreeRecord: (id: TreeRecordId) -> (bool);
+  getComplianceTask: (id: TaskId) -> (opt ComplianceTask) query;
+  getDashboardStats: () -> (DashboardStats) query;
+  getTreeSpeciesSummary: () -> (vec SpeciesSummary) query;
+  listAirQualityReadings: () -> (vec AirQualityReading) query;
+  listAirQualityReadingsInRange: (fromDate: Timestamp, toDate: Timestamp) ->
+   (vec AirQualityReading) query;
+  listComplianceTasks: () -> (vec ComplianceTask) query;
+  listComplianceTasksByStatus: (status: TaskStatus) ->
+   (vec ComplianceTask) query;
+  listPiezometerReadings: () -> (vec PiezometerReading) query;
+  listTreeRecords: () -> (vec TreeRecord) query;
+  updateComplianceTask: (id: TaskId, req: UpdateTaskRequest) ->
+   (opt ComplianceTask);
+}

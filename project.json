@@ -1,0 +1,23 @@
+{
+  "overview": "A comprehensive environmental compliance dashboard for coal mine operations. Tracks EC/CTO conditions with due dates and responsible officers, logs air quality and piezometer monitoring data, and maintains a planted trees inventory — all in one place for regulatory reporting.",
+  "features": [
+    "Compliance task tracking with EC/CTO conditions, due dates, statuses, and RO assignment",
+    "Air quality and piezometer monitoring data entry with historical trend views",
+    "Planted trees inventory with species, location, and planting date",
+    "Dashboard overview with compliance summary and upcoming deadlines",
+    "Filter and sort compliance tasks by status, due date, or responsible officer",
+    "Monthly monitoring report aggregating all environmental readings"
+  ],
+  "category": "productivity",
+  "tags": [
+    "coal-mine",
+    "environmental-compliance",
+    "monitoring",
+    "ec-cto",
+    "piezometer",
+    "air-quality",
+    "planted-trees",
+    "regulatory"
+  ],
+  "last_updated": "2026-04-16T11:37:30.793Z"
+}

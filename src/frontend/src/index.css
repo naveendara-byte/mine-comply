@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "DM Sans";
+    --font-body: "Figtree";
+    --font-mono: "JetBrains Mono";
+    --radius: 0.5rem;
+
+    /* Light mode: traditional compliance document aesthetic */
+    --background: 0.98 0 0;
+    --foreground: 0.15 0 0;
+    --card: 0.995 0 0;
+    --card-foreground: 0.15 0 0;
+    --popover: 0.995 0 0;
+    --popover-foreground: 0.15 0 0;
+
+    --primary: 0.38 0.12 256;
+    --primary-foreground: 0.98 0 0;
+
+    --secondary: 0.92 0 0;
+    --secondary-foreground: 0.2 0 0;
+    --muted: 0.9 0 0;
+    --muted-foreground: 0.45 0 0;
+
+    --accent: 0.65 0.18 33;
+    --accent-foreground: 0.98 0 0;
+
+    --destructive: 0.58 0.19 24;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.88 0 0;
+    --input: 0.92 0 0;
+    --ring: 0.38 0.12 256;
+
+    /* Status colors: green (completed), amber (in-progress), orange-red (overdue), gray (pending) */
+    --status-completed: 0.65 0.17 153;
+    --status-in-progress: 0.68 0.15 70;
+    --status-overdue: 0.58 0.19 24;
+    --status-pending: 0.45 0 0;
+
+    /* Chart colors for monitoring data */
+    --chart-1: 0.65 0.17 153;
+    --chart-2: 0.62 0.18 243;
+    --chart-3: 0.68 0.15 70;
+    --chart-4: 0.58 0.19 24;
+    --chart-5: 0.45 0 0;
+
+    --sidebar: 0.98 0 0;
+    --sidebar-foreground: 0.15 0 0;
+    --sidebar-primary: 0.38 0.12 256;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.92 0 0;
+    --sidebar-accent-foreground: 0.2 0 0;
+    --sidebar-border: 0.88 0 0;
+    --sidebar-ring: 0.38 0.12 256;
+  }
+
+  .dark {
+    /* Dark mode: deep industrial/ops center aesthetic */
+    --background: 0.11 0.02 254;
+    --foreground: 0.92 0.01 254;
+    --card: 0.155 0.02 254;
+    --card-foreground: 0.92 0.01 254;
+    --popover: 0.19 0.02 254;
+    --popover-foreground: 0.92 0.01 254;
+
+    --primary: 0.65 0.18 243;
+    --primary-foreground: 0.11 0.02 254;
+
+    --secondary: 0.2 0.02 254;
+    --secondary-foreground: 0.82 0.02 254;
+    --muted: 0.2 0.02 254;
+    --muted-foreground: 0.52 0.01 254;
+
+    --accent: 0.68 0.15 70;
+    --accent-foreground: 0.11 0.02 254;
+
+    --destructive: 0.58 0.19 24;
+    --destructive-foreground: 0.92 0.01 254;
+
+    --border: 0.25 0.01 254;
+    --input: 0.25 0.01 254;
+    --ring: 0.68 0.15 70;
+
+    /* Status colors (same across modes for urgency clarity) */
+    --status-completed: 0.65 0.17 153;
+    --status-in-progress: 0.68 0.15 70;
+    --status-overdue: 0.58 0.19 24;
+    --status-pending: 0.45 0 0;
+
+    /* Chart colors */
+    --chart-1: 0.65 0.17 153;
+    --chart-2: 0.62 0.18 243;
+    --chart-3: 0.68 0.15 70;
+    --chart-4: 0.58 0.19 24;
+    --chart-5: 0.45 0 0;
+
+    --sidebar: 0.155 0.02 254;
+    --sidebar-foreground: 0.92 0.01 254;
+    --sidebar-primary: 0.65 0.18 243;
+    --sidebar-primary-foreground: 0.11 0.02 254;
+    --sidebar-accent: 0.2 0.02 254;
+    --sidebar-accent-foreground: 0.82 0.02 254;
+    --sidebar-border: 0.25 0.01 254;
+    --sidebar-ring: 0.68 0.15 70;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .status-completed {
+    @apply bg-green-500/20 text-green-700 dark:text-green-300 border-l-4 border-green-600;
+  }
+
+  .status-in-progress {
+    @apply bg-amber-500/20 text-amber-700 dark:text-amber-300 border-l-4 border-amber-600;
+  }
+
+  .status-overdue {
+    @apply bg-red-500/20 text-red-700 dark:text-red-300 border-l-4 border-red-600;
+  }
+
+  .status-pending {
+    @apply bg-muted text-muted-foreground border-l-4 border-border;
+  }
+
+  .accent-status-pill {
+    @apply px-3 py-1 rounded-full text-xs font-semibold inline-block;
+  }
+
+  .data-section {
+    @apply space-y-3;
+  }
+
+  .data-row {
+    @apply flex items-center justify-between py-2 px-3 rounded-md hover:bg-muted/50 transition-smooth;
+  }
+}
