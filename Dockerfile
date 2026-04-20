@@ -1,20 +1,23 @@
-# Use Python 3.9 (or your preferred version)
-FROM python:3.9-slim
+# 1. Use Node.js image
+FROM node:20-slim
 
-# Set the working directory
+# 2. Install pnpm (since you are using pnpm-lock.yaml)
+RUN npm install -g pnpm
+
+# 3. Set working directory
 WORKDIR /app
 
-# Copy the requirements file first to leverage Docker cache
-COPY requirements.txt .
+# 4. Copy package files
+COPY package.json pnpm-lock.yaml* ./
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# 5. Install dependencies
+RUN pnpm install
 
-# Copy the rest of your application code
+# 6. Copy the rest of your code
 COPY . .
 
-# Expose the port your app runs on (usually 8080 for Google Cloud)
+# 7. Expose port 8080 (Google Cloud standard)
 EXPOSE 8080
 
-# Command to run your app (Change 'app:app' to match your main file name)
-CMD ["gunicorn", "--bind", ":8080", "--workers", "1", "--threads", "8", "app:app"]
+# 8. Start the app (adjusting to your package.json start script)
+CMD [ "pnpm", "start" ]
